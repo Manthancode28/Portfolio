@@ -1,46 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaGithub, FaLinkedin, FaTwitter, FaJava, FaGitAlt } from 'react-icons/fa';
-import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiCplusplus, SiJavascript, SiMysql, SiLeetcode  } from 'react-icons/si';
-
+import { FaGithub, FaLinkedin, FaJava, FaGitAlt } from 'react-icons/fa';
+import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiCplusplus, SiJavascript, SiMysql, SiLeetcode } from 'react-icons/si';
 
 import myPhoto from './assets/MyPhoto.png'; 
 
-const SkillConstellation = () => {
-    const skills = [
-        { icon: <SiReact size="100%" className="text-blue-400" />, x: '10%', y: '20%', duration: 15 },
-        { icon: <SiNodedotjs size="100%" className="text-green-500" />, x: '70%', y: '30%', duration: 18 },
-        { icon: <SiCplusplus size="100%" className="text-blue-600" />, x: '40%', y: '70%', duration: 20 },
-        { icon: <SiJavascript size="100%" className="text-yellow-400" />, x: '80%', y: '60%', duration: 16 },
-        { icon: <SiMongodb size="100%" className="text-green-600" />, x: '20%', y: '50%', duration: 19 },
+// --- Animated Typing Terminal Component ---
+const TypingTerminal = () => {
+    const script = [
+        { text: "// Initializing developer profile...", color: "text-gray-500" },
+        { text: "const aboutMe = {", color: "text-gray-300" },
+        { text: "  name: 'Manthan Nimonkar',", color: "text-green-400", indent: true },
+        { text: "  title: 'Full Stack Developer',", color: "text-green-400", indent: true },
+        { text: "};", color: "text-gray-300" },
+        { text: "", color: "" },
+        { text: "// Loading skills...", color: "text-gray-500" },
+        { text: "const skills = [", color: "text-gray-300" },
+        { text: "  'React', 'Node.js', 'MongoDB', 'C++', 'Java', 'Git'", color: "text-purple-400", indent: true },
+        { text: "];", color: "text-gray-300" },
+        { text: "", color: "" },
+        { text: "// Fetching projects...", color: "text-gray-500" },
+        { text: "const projects = [", color: "text-gray-300" },
+        { text: "  'E-commerce Platform', 'Staysphere Booking App',", color: "text-yellow-400", indent: true },
+        { text: "  'QuickFix Facility Mngmt', 'TaskFlow App'", color: "text-yellow-400", indent: true },
+        { text: "];", color: "text-gray-300" },
+        { text: "", color: "" },
+        { text: "// System status...", color: "text-gray-500" },
+        { text: "console.log('Caffeine level: optimal');", color: "text-blue-400" },
+        { text: "console.log('Ready to build!');", color: "text-blue-400" },
     ];
 
+    const [lines, setLines] = useState([]);
+    const terminalRef = useRef(null); // Ref for the scrollable div
+
+    // Effect for typing out lines
+    useEffect(() => {
+        let timeout;
+        const addLine = (index) => {
+            if (index < script.length) {
+                setLines(prev => [...prev, script[index]]);
+                timeout = setTimeout(() => addLine(index + 1), script[index].text ? 800 : 200); // Adjusted timing
+            }
+        };
+        addLine(0);
+        return () => clearTimeout(timeout);
+    }, []);
+
+    // Effect for auto-scrolling
+    useEffect(() => {
+        if (terminalRef.current) {
+            terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+        }
+    }, [lines]);
+
     return (
-        <div className="w-2/3 mx-44 h-full relative">
-            {skills.map((skill, index) => (
-                <motion.div
-                    key={index}
-                    className="absolute w-16 h-16 md:w-20 md:h-20"
-                    style={{ top: skill.y, left: skill.x }}
-                    animate={{
-                        y: [0, -20, 0, 20, 0],
-                        x: [0, 10, 0, -10, 0],
-                    }}
-                    transition={{
-                        duration: skill.duration,
-                        repeat: Infinity,
-                        repeatType: "mirror",
-                        ease: "easeInOut",
-                    }}
-                    whileHover={{ scale: 1.2, transition: { duration: 0.3 } }}
-                >
-                    {skill.icon}
-                </motion.div>
-            ))}
-        </div>
+        <motion.div 
+            className="w-full h-full bg-[#2d3748]/50 rounded-lg p-4 font-mono text-xs sm:text-sm md:text-base border border-gray-700 shadow-lg overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
+            <div className="flex items-center mb-4">
+                <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            {/* Added ref and classes to hide scrollbar */}
+            <div 
+                ref={terminalRef}
+                className="overflow-y-auto h-[calc(100%-2rem)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+            >
+                {lines.map((line, index) => (
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="whitespace-pre"
+                    >
+                        <span className={line.color}>
+                            {line.indent && <span className="mr-4"></span>}
+                            {line.text}
+                        </span>
+                    </motion.div>
+                ))}
+            </div>
+        </motion.div>
     );
 };
+
 
 // --- Reusable Animated Component ---
 const AnimatedSection = ({ children }) => {
@@ -110,14 +159,10 @@ const Header = () => {
 
     return (
         <header className="fixed w-full z-40 bg-[#1a202c]/80 backdrop-blur-sm">
-            {/* The main container is now relative to position the absolute nav */}
             <div className="container mx-auto flex items-center justify-between p-4 relative">
-                {/* Name on the left */}
                 <div className="text-2xl font-bold text-green-400 z-10">
-                    <a href="#hero" className="hidden md:block hover:text-green-300 transition-colors">Manthan Nimonkar</a>
+                    <a href="#hero" className="hover:text-green-300 transition-colors">Manthan Nimonkar</a>
                 </div>
-
-                {/* Centered navigation for medium screens and up */}
                 <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     {navLinks.map(link => (
                         <a key={link} href={`#${link.toLowerCase()}`} className="text-gray-300 hover:text-green-400 transition-colors duration-300">
@@ -125,16 +170,12 @@ const Header = () => {
                         </a>
                     ))}
                 </nav>
-
-                {/* Mobile menu button on the right */}
                 <div className="md:hidden z-10">
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-300 focus:outline-none">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path></svg>
                     </button>
                 </div>
             </div>
-
-            {/* Mobile dropdown menu */}
             {isMenuOpen && (
                 <nav className="md:hidden bg-[#1a202c] p-4">
                     {navLinks.map(link => (
@@ -150,7 +191,7 @@ const Header = () => {
 
 const HeroSection = () => (
     <section id="hero" className="min-h-screen flex flex-col md:flex-row items-center justify-center">
-        <div className="md:w-3/5 lg:w-1/2 text-center md:text-left">
+        <div className="md:w-7/12 lg:w-1/2 text-center md:text-left">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="text-xl md:text-3xl text-green-400 mb-4">Hi, my name is</h1>
             </motion.div>
@@ -158,7 +199,8 @@ const HeroSection = () => (
                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-100">Manthan Nimonkar</h2>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
-                <h3 className="text-3xl sm:text-4xl md:text-7xl font-bold text-gray-400 mt-2">I build things for the web.</h3>
+                {/* Reduced font size */}
+                <h3 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-400 mt-2">I build things for the web.</h3>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.6 }}>
                 <p className="max-w-xl mt-6 text-lg mx-auto md:mx-0">
@@ -174,80 +216,68 @@ const HeroSection = () => (
                 </a>
             </motion.div>
         </div>
-        <div className="hidden md:block md:w-2/5 lg:w-1/2 h-80 md:h-96">
-            <SkillConstellation />
+        {/* Adjusted width of terminal */}
+        <div className="w-full mt-12 md:mt-0 md:w-5/12 lg:w-1/2 h-80 md:h-96">
+            <TypingTerminal />
         </div>
     </section>
 );
 
 
-    const AboutSection = () => (
-
-        <section id="about" className="py-24">
-
-            <AnimatedSection>
-
-                <h2 className="text-3xl font-bold text-center mb-12 text-gray-100 relative inline-block">
-
-                    About Me
-
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-green-500 rounded-full"></span>
-
-                </h2>
-
-                <div className="flex flex-col md:flex-row items-center gap-12">
-
-                    <div className="md:w-2/3">
-
-                        <p className="mb-4">
-
-                            {/* Hello! I'm a full-stack developer with a strong foundation in computer science principles, thanks to my background in C++. This allows me to approach problems with a focus on efficiency and scalability. I thrive on turning complex ideas into elegant, interactive web applications. */}
-                            I'm a final-year IT student with a strong passion for full-stack web development and problem-solving. I specialize in the MERN stack (MongoDB, Express.js, React, Node.js) and have built real-world projects that focus on functionality, responsiveness, and clean user experiences.
-                        </p>
-
-                        <p className="mb-4">
-
-                                {/* My primary focus is the MERN stack (MongoDB, Express.js, React, Node.js), where I enjoy the challenge of building seamless front-to-back experiences. I'm a continuous learner, always exploring new technologies to enhance my skillset and deliver better products. */}
-                            Alongside development, I actively solve Data Structures and Algorithms (DSA) problems in C++, helping me strengthen my logical thinking and coding efficiency. I've also participated in hackathons and coding contests, and I'm always eager to learn, build, and contribute to impactful tech solutions.
-                        </p>
-
-                        <p>
-
-                            When I'm not coding, you can find me exploring new tech articles, playing chess, or enjoying a good cup of coffee.
-                        </p>
-
-                    </div>
-
-                    <div className="hidden md:flex md:w-1/3 justify-center items-center mt-8 md:mt-0">
-
-                        <div className="w-74 h-90 relative group">
-
-                            <div className="absolute top-0 left-0 w-full h-70 bg-green-500/10 rounded-tl-[50%] rounded-tr-[50%] border-green-400 transition-transform duration-300"></div>
-
-                            <img
-
-                                src={myPhoto} 
-
-                                alt="Manthan Nimonkar"
-
-                                className="absolute bottom-20 left-0 w-full h-auto object-contain transition-transform duration-300 z-10"
-
-                            />
-
-                        </div>
-
-                    </div>
-
+const AboutSection = () => (
+    <section id="about" className="py-24">
+        <AnimatedSection>
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-100 relative inline-block">
+                About Me
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-green-500 rounded-full"></span>
+            </h2>
+            <div className="flex flex-col md:flex-row items-center gap-12">
+                <div className="md:w-2/3">
+                    <p className="mb-4">
+                        I'm a final-year IT student with a strong passion for full-stack web development and problem-solving. I specialize in the MERN stack (MongoDB, Express.js, React, Node.js) and have built real-world projects that focus on functionality, responsiveness, and clean user experiences.
+                    </p>
+                    <p className="mb-4">
+                        Alongside development, I actively solve Data Structures and Algorithms (DSA) problems in C++, helping me strengthen my logical thinking and coding efficiency. I've also participated in hackathons and coding contests, and I'm always eager to learn, build, and contribute to impactful tech solutions.
+                    </p>
+                    <p>
+                        When I'm not coding, you can find me exploring new tech articles, playing chess, or enjoying a good cup of coffee.
+                    </p>
                 </div>
-            </AnimatedSection>
+                <div className="md:w-1/3 flex justify-center items-center mt-8 md:mt-0">
+                    <div className="w-64 h-80 relative group">
+                        <motion.img
+                            src={myPhoto}
+                            alt="Manthan Nimonkar"
+                            className="absolute bottom-0 w-full h-auto object-contain z-20"
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ type: 'spring', stiffness: 300 }}
+                        />
+                        <motion.div
+                            className="absolute top-0 left-0 w-full h-64 bg-green-500/10 rounded-tl-[50%] rounded-tr-[50%] border-2 border-green-400 z-10"
+                            whileHover={{ transform: 'translate(8px, 8px)' }}
+                            transition={{ duration: 0.3 }}
+                        />
+                        <div className="absolute top-0 left-0 w-full h-64 overflow-hidden rounded-tl-[50%] rounded-tr-[50%] z-0">
+                            {[...Array(10)].map((_, i) => (
+                                <motion.div
+                                    key={i}
+                                    className="absolute left-0 w-full h-px bg-green-400/30"
+                                    style={{ top: `${i * 10 + 10}%` }}
+                                    initial={{ scaleX: 0, originX: i % 2 === 0 ? 0 : 1 }}
+                                    animate={{ scaleX: 1 }}
+                                    transition={{ duration: 0.8, delay: i * 0.1 + 0.5, ease: "easeOut" }}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AnimatedSection>
+    </section>
+);
 
-        </section>
-
-    );
-
-    
 const projects = [
-     {
+    {
         title: 'QuickFix Project',
         description: 'A real-time facility management app for colleges. Faculty can report equipment issues by scanning QR codes; admins track and manage these reports.',
         tags: ['React', 'Firebase', 'Geolocation', 'Real-time DB'],
@@ -291,12 +321,10 @@ const ProjectsSection = () => (
                 My Projects
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-green-500 rounded-full"></span>
             </h2>
-            {/* Changed from grid to flex for automatic alignment */}
             <div className="flex flex-wrap justify-center gap-8">
                 {projects.map((project) => (
                     <motion.div
                         key={project.title}
-                        // Added width classes to control wrapping
                         className="bg-[#2d3748] rounded-lg shadow-lg overflow-hidden flex flex-col group w-full sm:w-5/6 md:w-[45%] lg:w-[30%]"
                         whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                         transition={{ duration: 0.3 }}
@@ -312,16 +340,12 @@ const ProjectsSection = () => (
                                 ))}
                             </div>
                             <div className="flex justify-between items-center text-gray-400">
-                              {
-                                project.liveLink !== "#"  && (
-                                   <a href={project.liveLink} className="hover:text-green-400 transition-colors" target='blank'>Live Demo</a>
-                                )
-                              }
-                               {
-                                project.repoLink !== "#" && (
+                                { project.liveLink !== "#" && (
+                                    <a href={project.liveLink} className="hover:text-green-400 transition-colors" target='blank'>Live Demo</a>
+                                )}
+                                { project.repoLink !== "#" && (
                                     <a href={project.repoLink} className="hover:text-green-400 transition-colors" target='blank'><FaGithub /></a>
-                                )
-                               }
+                                )}
                             </div>
                         </div>
                     </motion.div>
@@ -340,11 +364,11 @@ const SkillsSection = () => {
     ];
 
     const otherSkills = [
-        { name: 'JavaScript', icon: <SiJavascript size={80} className="text-yellow-400" /> },
-        { name: 'Java', icon: <FaJava size={80} className="text-red-500" /> },
-        { name: 'C++', icon: <SiCplusplus size={80} className="text-blue-600" /> },
-        { name: 'MySQL', icon: <SiMysql size={80} className="text-blue-500" /> },
-        { name: 'Git', icon: <FaGitAlt size={80} className="text-orange-600" /> },
+        { name: 'JavaScript', icon: <SiJavascript size={60} className="text-yellow-400" /> },
+        { name: 'Java', icon: <FaJava size={60} className="text-red-500" /> },
+        { name: 'C++', icon: <SiCplusplus size={60} className="text-blue-600" /> },
+        { name: 'MySQL', icon: <SiMysql size={60} className="text-blue-500" /> },
+        { name: 'Git', icon: <FaGitAlt size={60} className="text-orange-600" /> },
     ];
 
     return (
@@ -354,7 +378,7 @@ const SkillsSection = () => {
                     My Skills
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-green-500 rounded-full"></span>
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 text-center mb-20">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center mb-20">
                     {mernSkills.map((skill) => (
                         <motion.div 
                             key={skill.name} 
@@ -370,7 +394,7 @@ const SkillsSection = () => {
                     ))}
                 </div>
                 <h3 className="text-2xl font-bold text-center mb-12 text-gray-200">Also Proficient In</h3>
-                <div className="flex flex-wrap justify-center gap-12 md:gap-12">
+                <div className="flex flex-wrap justify-center gap-12 md:gap-16">
                     {otherSkills.map((skill) => (
                         <motion.div
                             key={skill.name}
