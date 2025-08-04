@@ -17,13 +17,13 @@ const TypingTerminal = () => {
         { text: "", color: "" },
         { text: "// Loading skills...", color: "text-gray-500" },
         { text: "const skills = [", color: "text-gray-300" },
-        { text: "  'React', 'Node.js', 'MongoDB', 'C++', 'Java', 'Git'", color: "text-purple-400", indent: true },
+        { text: " 'C++', 'JavaScript','React', 'Node.js', 'Express.js', 'MongoDB','MySQL', 'Git'", color: "text-purple-400", indent: true },
         { text: "];", color: "text-gray-300" },
         { text: "", color: "" },
         { text: "// Fetching projects...", color: "text-gray-500" },
         { text: "const projects = [", color: "text-gray-300" },
         { text: "  'E-commerce Platform', 'Staysphere Booking App',", color: "text-yellow-400", indent: true },
-        { text: "  'QuickFix Facility Mngmt', 'TaskFlow App'", color: "text-yellow-400", indent: true },
+        { text: "  'QuickFix Facility Management', 'TaskFlow App'", color: "text-yellow-400", indent: true },
         { text: "];", color: "text-gray-300" },
         { text: "", color: "" },
         { text: "// System status...", color: "text-gray-500" },
@@ -191,7 +191,7 @@ const Header = () => {
 
 const HeroSection = () => (
     <section id="hero" className="min-h-screen flex flex-col md:flex-row items-center justify-center">
-        <div className="md:w-7/12 lg:w-1/2 text-center md:text-left">
+        <div className="mt-8 md:w-7/12 lg:w-1/2 text-center md:text-left">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="text-xl md:text-3xl text-green-400 mb-4">Hi, my name is</h1>
             </motion.div>
@@ -225,90 +225,102 @@ const HeroSection = () => (
 
 
 const AboutSection = () => (
-    <section id="about" className="py-24">
-        <AnimatedSection>
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-100 relative inline-block">
-                About Me
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-green-500 rounded-full"></span>
-            </h2>
-            <div className="flex flex-col md:flex-row items-center gap-12">
-                <div className="md:w-2/3">
-                    <p className="mb-4">
-                        I'm a final-year IT student with a strong passion for full-stack web development and problem-solving. I specialize in the MERN stack (MongoDB, Express.js, React, Node.js) and have built real-world projects that focus on functionality, responsiveness, and clean user experiences.
-                    </p>
-                    <p className="mb-4">
-                        Alongside development, I actively solve Data Structures and Algorithms (DSA) problems in C++, helping me strengthen my logical thinking and coding efficiency. I've also participated in hackathons and coding contests, and I'm always eager to learn, build, and contribute to impactful tech solutions.
-                    </p>
-                    <p>
-                        When I'm not coding, you can find me exploring new tech articles, playing chess, or enjoying a good cup of coffee.
-                    </p>
-                </div>
-                <div className="md:w-1/3 flex justify-center items-center mt-8 md:mt-0">
-                    <div className="w-64 h-80 relative group">
-                        <motion.img
-                            src={myPhoto}
-                            alt="Manthan Nimonkar"
-                            className="absolute bottom-0 w-full h-auto object-contain z-20"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ type: 'spring', stiffness: 300 }}
-                        />
-                        <motion.div
-                            className="absolute top-0 left-0 w-full h-64 bg-green-500/10 rounded-tl-[50%] rounded-tr-[50%] border-2 border-green-400 z-10"
-                            whileHover={{ transform: 'translate(8px, 8px)' }}
-                            transition={{ duration: 0.3 }}
-                        />
-                        <div className="absolute top-0 left-0 w-full h-64 overflow-hidden rounded-tl-[50%] rounded-tr-[50%] z-0">
-                            {[...Array(10)].map((_, i) => (
-                                <motion.div
-                                    key={i}
-                                    className="absolute left-0 w-full h-px bg-green-400/30"
-                                    style={{ top: `${i * 10 + 10}%` }}
-                                    initial={{ scaleX: 0, originX: i % 2 === 0 ? 0 : 1 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ duration: 0.8, delay: i * 0.1 + 0.5, ease: "easeOut" }}
-                                />
-                            ))}
-                        </div>
+
+        <section id="about" className="py-24">
+
+            <AnimatedSection>
+
+                <h2 className="text-3xl font-bold text-center mb-12 text-gray-100 relative inline-block">
+
+                    About Me
+
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-green-500 rounded-full"></span>
+
+                </h2>
+
+                <div className="flex flex-col md:flex-row items-center gap-12">
+
+                    <div className="md:w-2/3">
+
+                        <p className="mb-4">
+
+                            {/* Hello! I'm a full-stack developer with a strong foundation in computer science principles, thanks to my background in C++. This allows me to approach problems with a focus on efficiency and scalability. I thrive on turning complex ideas into elegant, interactive web applications. */}
+                            I'm a final-year IT student with a strong passion for full-stack web development and problem-solving. I specialize in the MERN stack (MongoDB, Express.js, React, Node.js) and have built real-world projects that focus on functionality, responsiveness, and clean user experiences.
+                        </p>
+
+                        <p className="mb-4">
+
+                                {/* My primary focus is the MERN stack (MongoDB, Express.js, React, Node.js), where I enjoy the challenge of building seamless front-to-back experiences. I'm a continuous learner, always exploring new technologies to enhance my skillset and deliver better products. */}
+                            Alongside development, I actively solve Data Structures and Algorithms (DSA) problems in C++, helping me strengthen my logical thinking and coding efficiency. I've also participated in hackathons and coding contests, and I'm always eager to learn, build, and contribute to impactful tech solutions.
+                        </p>
+
+                        <p>
+
+                            When I'm not coding, you can find me exploring new tech articles, playing chess, or enjoying a good cup of coffee.
+                        </p>
+
                     </div>
+
+                    <div className="hidden md:flex md:w-1/3 justify-center items-center mt-8 md:mt-0">
+
+                        <div className="w-74 h-90 relative group">
+
+                            <div className="absolute top-0 left-0 w-full h-70 bg-green-500/10 rounded-tl-[50%] rounded-tr-[50%] border-green-400 transition-transform duration-300 shadow-[0_20px_25px_rgba(0,0,0,0.5)]" ></div>
+
+                            <img
+
+                                src={myPhoto} 
+
+                                alt="Manthan Nimonkar"
+
+                                className="absolute bottom-20 left-0 w-full h-auto object-contain transition-transform duration-300 z-10 drop-shadow-[0_5px_10px_rgba(52,211,153,0.6)]"
+
+                            />
+
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
-        </AnimatedSection>
-    </section>
-);
+            </AnimatedSection>
+
+        </section>
+
+    );
 
 const projects = [
     {
         title: 'QuickFix Project',
         description: 'A real-time facility management app for colleges. Faculty can report equipment issues by scanning QR codes; admins track and manage these reports.',
-        tags: ['React', 'Firebase', 'Geolocation', 'Real-time DB'],
+        tags: ['HTML','CSS','JavaScript','Node.js','Express.js', 'Firebase'],
         liveLink: '#',
         repoLink: '#',
     },
     {
         title: 'E-commerce Project',
         description: 'A full-stack e-commerce platform featuring product catalogs, a shopping cart, secure user authentication, and an admin dashboard.',
-        tags: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT'],
+        tags: ['React', 'Redux,','Tailwind','REST API','Node.js', 'Express', 'MongoDB', 'JWT', 'Stripe'],
         liveLink: 'https://mern-ecommerce-flashkart-1.onrender.com',
         repoLink: 'https://github.com/Manthancode28/mern-ecommerce-flashkart',
     },
     {
         title: 'Staysphere',
         description: 'A modern hotel booking application. Users can search for rooms, view details, check availability in real-time, and make secure reservations.',
-        tags: ['React', 'Node.js', 'API Integration', 'Stripe'],
+        tags: ['HTML', 'CSS','JavaScript','Node.js','Express.js', 'API Integration', 'MongoDB'],
         liveLink: 'https://staysphere-4t14.onrender.com/listings',
         repoLink: 'https://github.com/Manthancode28/StaySphere-MERN',
     },
     {
         title: 'ADmyBRAND Landing Page',
         description: 'A responsive and visually appealing landing page for a marketing brand, designed to capture user interest and generate leads.',
-        tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+        tags: ['React', 'Tailwind', 'Responsive Design'],
         liveLink: 'https://admybrand-landing-page-two.vercel.app',
         repoLink: 'https://github.com/Manthancode28/admybrand-landing-page.',
     },
     {
         title: 'TaskFlow: Task Management',
         description: 'A task management application to help users organize their to-do lists, set priorities, and track progress with an intuitive interface.',
-        tags: ['React', 'State Management', 'Local Storage'],
+        tags: ['React', 'Redux', 'Node.js','Express.js', 'MongoDB'],
         liveLink: '#',
         repoLink: 'https://github.com/Manthancode28/TaskFlow-todo-app',
     },
