@@ -7,40 +7,6 @@ import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiCplusplus, SiJavascript, 
 
 import myPhoto from './assets/MyPhoto.png'; 
 
-const SkillConstellation = () => {
-    const skills = [
-        { icon: <SiReact size="100%" className="text-blue-400" />, x: '10%', y: '20%', duration: 15 },
-        { icon: <SiNodedotjs size="100%" className="text-green-500" />, x: '70%', y: '30%', duration: 18 },
-        { icon: <SiCplusplus size="100%" className="text-blue-600" />, x: '40%', y: '70%', duration: 20 },
-        { icon: <SiJavascript size="100%" className="text-yellow-400" />, x: '80%', y: '60%', duration: 16 },
-        { icon: <SiMongodb size="100%" className="text-green-600" />, x: '20%', y: '50%', duration: 19 },
-    ];
-
-    return (
-        <div className="w-2/3 mx-44 h-full relative">
-            {skills.map((skill, index) => (
-                <motion.div
-                    key={index}
-                    className="absolute w-16 h-16 md:w-20 md:h-20"
-                    style={{ top: skill.y, left: skill.x }}
-                    animate={{
-                        y: [0, -20, 0, 20, 0],
-                        x: [0, 10, 0, -10, 0],
-                    }}
-                    transition={{
-                        duration: skill.duration,
-                        repeat: Infinity,
-                        repeatType: "mirror",
-                        ease: "easeInOut",
-                    }}
-                    whileHover={{ scale: 1.2, transition: { duration: 0.3 } }}
-                >
-                    {skill.icon}
-                </motion.div>
-            ))}
-        </div>
-    );
-};
 
 // --- Reusable Animated Component ---
 const AnimatedSection = ({ children }) => {
@@ -150,9 +116,9 @@ const Header = () => {
 
 const HeroSection = () => (
     <section id="hero" className="min-h-screen flex flex-col md:flex-row items-center justify-center">
-        <div className="md:w-3/5 lg:w-1/2 text-center md:text-left">
+        <div className="w-full max-w-6xl text-center md:text-left px-4">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <h1 className="text-xl md:text-3xl text-green-400 mb-4">Hi, my name is</h1>
+                <h1 className="text-xl md:text-4xl text-green-400 mb-4">Hi, my name is</h1>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-100">Manthan Nimonkar</h2>
@@ -174,9 +140,7 @@ const HeroSection = () => (
                 </a>
             </motion.div>
         </div>
-        <div className="hidden md:block md:w-2/5 lg:w-1/2 h-80 md:h-96">
-            <SkillConstellation />
-        </div>
+
     </section>
 );
 
@@ -222,7 +186,7 @@ const HeroSection = () => (
 
                         <div className="w-74 h-90 relative group">
 
-                            <div className="absolute top-0 left-0 w-full h-70 bg-green-500/10 rounded-tl-[50%] rounded-tr-[50%] border-green-400 transition-transform duration-300"></div>
+                            <div className="absolute top-0 left-0 w-full h-70 bg-green-500/10 rounded-tl-[50%] rounded-tr-[50%] border-green-400 transition-transform duration-300 shadow-[0_20px_25px_rgba(0,0,0,0.5)]" ></div>
 
                             <img
 
@@ -230,7 +194,7 @@ const HeroSection = () => (
 
                                 alt="Manthan Nimonkar"
 
-                                className="absolute bottom-20 left-0 w-full h-auto object-contain transition-transform duration-300 z-10"
+                                className="absolute bottom-20 left-0 w-full h-auto object-contain transition-transform duration-300 z-10 drop-shadow-[0_5px_10px_rgba(52,211,153,0.6)]"
 
                             />
 
@@ -247,41 +211,42 @@ const HeroSection = () => (
 
     
 const projects = [
-     {
+    {
         title: 'QuickFix Project',
         description: 'A real-time facility management app for colleges. Faculty can report equipment issues by scanning QR codes; admins track and manage these reports.',
-        tags: ['React', 'Firebase', 'Geolocation', 'Real-time DB'],
+        tags: ['HTML','CSS','JavaScript','Node.js','Express.js', 'Firebase'],
         liveLink: '#',
         repoLink: '#',
     },
     {
         title: 'E-commerce Project',
         description: 'A full-stack e-commerce platform featuring product catalogs, a shopping cart, secure user authentication, and an admin dashboard.',
-        tags: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT'],
+        tags: ['React', 'Redux,','Tailwind','REST API','Node.js', 'Express', 'MongoDB', 'JWT', 'Stripe'],
         liveLink: 'https://mern-ecommerce-flashkart-1.onrender.com',
         repoLink: 'https://github.com/Manthancode28/mern-ecommerce-flashkart',
     },
     {
         title: 'Staysphere',
         description: 'A modern hotel booking application. Users can search for rooms, view details, check availability in real-time, and make secure reservations.',
-        tags: ['React', 'Node.js', 'API Integration', 'Stripe'],
+        tags: ['HTML', 'CSS','JavaScript','Node.js','Express.js', 'API Integration', 'MongoDB'],
         liveLink: 'https://staysphere-4t14.onrender.com/listings',
         repoLink: 'https://github.com/Manthancode28/StaySphere-MERN',
     },
     {
         title: 'ADmyBRAND Landing Page',
         description: 'A responsive and visually appealing landing page for a marketing brand, designed to capture user interest and generate leads.',
-        tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+        tags: ['React', 'Tailwind', 'Responsive Design'],
         liveLink: 'https://admybrand-landing-page-two.vercel.app',
         repoLink: 'https://github.com/Manthancode28/admybrand-landing-page.',
     },
     {
         title: 'TaskFlow: Task Management',
         description: 'A task management application to help users organize their to-do lists, set priorities, and track progress with an intuitive interface.',
-        tags: ['React', 'State Management', 'Local Storage'],
+        tags: ['React', 'Redux', 'Node.js','Express.js', 'MongoDB'],
         liveLink: '#',
         repoLink: 'https://github.com/Manthancode28/TaskFlow-todo-app',
     },
+
 ];
 
 const ProjectsSection = () => (
@@ -392,9 +357,10 @@ const ContactSection = () => (
     <section id="contact" className="py-24 text-center">
         <AnimatedSection>
             <h2 className="text-3xl font-bold text-gray-100">Get In Touch</h2>
-            <p className="max-w-xl mx-auto my-6">
-                I'm currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, my inbox is always open. I'll get back to you as soon as possible!
+           <p className="max-w-3xl text-xl mx-auto my-6">
+                I'm actively seeking exciting full-time opportunities where I can contribute, learn, and grow as a developer. If you're looking for someone who's passionate about building impactful web applications and eager to take on new challenges—I'd love to connect. Feel free to drop a message—I'm quick to respond!
             </p>
+
             <a href="mailto:manthan.nimon28@gmail.com" className="inline-block px-8 py-4 border border-green-400 text-green-400 rounded-md hover:bg-green-400/10 transition-colors duration-300">
                 Contact Me
             </a>
