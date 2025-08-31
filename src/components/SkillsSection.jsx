@@ -173,26 +173,32 @@ const SkillCategory = ({ title, skills }) => (
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           {mernSkills.map((skill, index) => {
-            const isLeft = index < 2; 
+            const isLeft = index < 2;
 
             return (
-              <motion.div 
+              <motion.div
                 key={skill.name}
-                className=" bg-[#112240] rounded-xl p-6 text-center"
-                initial={{ opacity: 0, scale: 0.8, x: isLeft ? -80 : 80 }} 
+                className="group bg-[#112240] rounded-xl p-6 text-center cursor-pointer transition-colors duration-300"
+                initial={{ opacity: 0, scale: 0.8, x: isLeft ? -80 : 80 }}
                 whileInView={{ opacity: 1, scale: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }} // Staggered delay
-                
+                transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
               >
-                <h3 className="text-7xl font-black text-gray-500 mb-3">{skill.letter}</h3>
+                <h3 className="text-7xl font-black text-gray-500 mb-3 transition-colors duration-300 group-hover:text-green-400">
+                  {skill.letter}
+                </h3>
                 <div className="flex items-center justify-center gap-2">
-                  {skill.icon}
-                  <p className="font-semibold text-gray-300 ">{skill.name}</p>
+                  <div className="transition-colors duration-300 group-hover:text-green-400">
+                    {skill.icon}
+                  </div>
+                  <p className="font-semibold text-gray-300 transition-colors duration-300 group-hover:text-green-400">
+                    {skill.name}
+                  </p>
                 </div>
               </motion.div>
             );
           })}
+
 
         </motion.div>
 
