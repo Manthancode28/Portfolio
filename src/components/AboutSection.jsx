@@ -31,7 +31,7 @@ const AboutSection = () => {
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           {/* Image Section */}
           <motion.div 
-            className="lg:w-2/5 mt-20 flex justify-center"
+            className="hidden lg:flex lg:w-2/5 mt-20 justify-center"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}

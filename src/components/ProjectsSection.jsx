@@ -226,7 +226,7 @@ Key technical aspects include efficient sequence generation algorithms, precise 
 
         {/* Featured Project */}
         <motion.div 
-          className="mb-16"
+          className="hidden md:block mb-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
